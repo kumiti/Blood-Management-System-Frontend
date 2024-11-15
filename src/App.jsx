@@ -25,6 +25,7 @@ import DashboardInformation from "./Component/Donar_information/Dashboard.jsx";
 import Awareness from "./Component/Awareness/Awareness";
 import LogIn from "./Component/LogIn/LogIn";
 import Schedule from "./Component/Schedule/Schedule";
+import Collector from "./Component/Dashboard_Collector/Collector";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         {/* dashboard end */}
         {/* donate as indivial start */}
         <Route path="/Register" element={<Indivdualdash />} />
+
         <Route path="/registerindivual" element={<Regesindivual />} />
         <Route path="/Nextindivual" element={<Nextindivual />} />
         <Route path="/email" element={<RidaNextRI />} />
@@ -67,6 +69,7 @@ function App() {
         <Route path="/Donersubmit" element={<Donerrgtr />} />
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/Schedule" element={<Schedule />} />
+        <Route path="/Dashboard_Collector" element={<Collector />} />
       </Routes>
     </>
   );
