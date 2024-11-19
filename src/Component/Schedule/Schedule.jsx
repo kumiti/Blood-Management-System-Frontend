@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-// src/components/Schedule.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importing the navigate function from react-router-dom
 import schedule from "./../../Component/Header/img/donate-blood-vector-1547245.jpg";
 import NavBar from "../Common/NavBar";
 
@@ -18,54 +18,31 @@ const Schedule = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [countryCode, setCountryCode] = useState("+1"); // default to USA
-  const [appointments, setAppointments] = useState([]);
-  const [alertMessage, setAlertMessage] = useState("");
-  const [showAppointments, setShowAppointments] = useState(false); // State to manage visibility
 
+  const navigate = useNavigate(); // Initialize the useNavigate hook for redirection
+
+  // Handle the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (date && time && email && phone) {
+      // Handle the appointment data
       const appointment = {
         date,
         time,
         email,
-        phone: `${countryCode} ${phone}`,
-      }; // combine country code and phone
-      setAppointments([...appointments, appointment]);
+        phone: `${countryCode} ${phone}`, // Combine country code and phone
+      };
+
+      // After submitting, clear the form and redirect to the home page
       setDate("");
       setTime("");
       setEmail("");
       setPhone("");
-      setCountryCode("+1"); // reset to default
+      setCountryCode("+1"); // Reset to default
+
+      alert("Form submitted successfully!");
+      navigate("/Donerinfo");  // Redirect to the home page
     }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      appointments.forEach((appointment) => {
-        const appointmentDate = new Date(
-          `${appointment.date}T${appointment.time}`
-        );
-        if (
-          now >= appointmentDate &&
-          now < appointmentDate.setMinutes(appointmentDate.getMinutes() + 1)
-        ) {
-          setAlertMessage(
-            `Reminder: You have an appointment scheduled for ${appointment.date} at ${appointment.time}. We will notify you via email at ${appointment.email} and phone at ${appointment.phone}.`
-          );
-          sendNotifications(appointment.email, appointment.phone);
-          setAppointments((prev) => prev.filter((a) => a !== appointment));
-        }
-      });
-    }, 60000); // Check every minute
-
-    return () => clearInterval(interval);
-  }, [appointments]);
-
-  const sendNotifications = (email, phone) => {
-    console.log(`Sending email to: ${email}`);
-    console.log(`Sending SMS to: ${phone}`);
   };
 
   const handlePhoneChange = (e) => {
@@ -75,13 +52,10 @@ const Schedule = () => {
     }
   };
 
-  const toggleAppointments = () => {
-    setShowAppointments((prev) => !prev); // Toggle visibility
-  };
-
   return (
     <div className="flex justify-around">
-      <div className="max-w-md mx-auto p-6 ml-32 bg-white rounded-lg shadow-md">
+      <NavBar />
+      <div className="max-w-md mt-20 mx-auto p-6 ml-32 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4">Schedule an Appointment</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -173,34 +147,8 @@ const Schedule = () => {
             Schedule
           </button>
         </form>
-        <button
-          onClick={toggleAppointments}
-          className="mt-4 w-full bg-gray-300 text-black p-2 rounded-md hover:bg-gray-400 transition"
-        >
-          {showAppointments ? "Hide" : "Show"} Scheduled Appointments
-        </button>
-        {showAppointments && (
-          <>
-            <h3 className="mt-6 text-xl font-semibold">
-              Scheduled Appointments
-            </h3>
-            <ul className="mt-2">
-              {appointments.map((appointment, index) => (
-                <li key={index} className="border-b py-2">
-                  {appointment.date} at {appointment.time} - {appointment.email}{" "}
-                  - {appointment.phone}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-        {alertMessage && (
-          <div className="mt-4 p-2 bg-yellow-200 text-yellow-800 rounded">
-            {alertMessage}
-          </div>
-        )}
       </div>
-      <div className="">
+      <div className="mt-20">
         <img src={schedule} alt="" className="w-[40rem] ml-24 h-[31rem]" />
       </div>
     </div>

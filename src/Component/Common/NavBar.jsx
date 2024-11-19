@@ -22,6 +22,9 @@ function NavBar() {
         <a className="hover:text-red-600" href="/#contact-us">
           Contact Us
         </a>
+        <a className="hover:text-red-600" href="/Awareness">
+          Awareness
+        </a>
       </div>
       <div className="flex space-x-2 border-black">
         <div className="relative ">

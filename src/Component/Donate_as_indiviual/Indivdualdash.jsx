@@ -9,7 +9,7 @@ function Indivdualdash() {
   const navigate = useNavigate();
 
   const Choose = () => {
-    navigate('/registerindivual');
+    navigate('/register1');
   };
   return (
  
@@ -31,6 +31,7 @@ function Indivdualdash() {
                 <Link to='/'>     <a className="hover:text-red-600" href="#">About</a></Link>  
                 <Link to='/'>    <a className="hover:text-red-600" href="#">Blood</a></Link>  
                 <Link to='/'>    <a className="hover:text-red-600" href="#">Contact Us</a></Link> 
+                <Link to='/'>    <a className="hover:text-red-600" href="#">Awareness</a></Link> 
 </div>
         <div className="flex flex-row space-x-4 border-black">
   <div className="relative ">

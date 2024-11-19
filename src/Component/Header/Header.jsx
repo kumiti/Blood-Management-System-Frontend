@@ -35,7 +35,7 @@ function Header() {
               by donating blood or finding the nearest <br /> blood bank with
               our seamless management system.
             </p>
-            <Link to="/Register">
+            <Link to="/registerion">
               <button className="bg-[#f72828fe] w-[200px]   rounded-md px-5 h-14 text-white hover:bg-red-400 text-2xl text-bold mt-[3rem]">
                 Register
               </button>

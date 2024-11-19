@@ -108,11 +108,11 @@
 // export default Awarness;
 
 import React, { useState } from "react";
-import NavBar from "../Dashboard/Navbar";
 import BloodHeart from "../Header/img/awareness.picture.jpg";
 import p1 from '../Header/img/image copy.png';
 import SearchBar from '../Header/Search';
 import { Link } from 'react-router-dom';
+import NavBar from "../Common/NavBar";
 
 // Array of blood types with details
 const bloodTypes = [
@@ -182,30 +182,7 @@ const Awareness = () => {
     <div className="flex flex-col">
       {/* Navbar Section */}
       {/* <NavBar /> */}
-      <div className=''>
-          <div className="bg-red-100 w-full border fixed border-white rounded-full flex flex-col md:flex-row items-center justify-between p-2">
-            <img src={p1} alt="Logo" className="h-14" />
-
-            <div className="text-black text-lg ml-0 md:ml-52 flex flex-wrap font-semibold space-x-2 md:space-x-4 items-center justify-center mt-2 md:mt-0">
-              <a className="hover:text-red-600" href="#">Home</a>
-              <a className="hover:text-red-600" href="#">About</a>
-              <a className="hover:text-red-600" href="#">Blood</a>
-              <a className="hover:text-red-600" href="#">Contact Us</a>
-            </div>
-
-            <div className="flex flex-row space-x-2 md:space-x-4 border-black">
-              <div className="relative">
-              <SearchBar/>
-              </div>
-              <Link to='/'>
-  <button className=" mr-5 p-2  w-28 h-11 text-xl rounded-md bg-white border hover:bg-slate-200 border-gray-300">
-    Log In
-  </button>
-  </Link>
-              <button className="p-2 w-24 text-sm md:text-xl rounded-md bg-red-600 hover:bg-red-900 text-white">Sign Up</button>
-            </div>
-            </div>
-            </div>
+      <NavBar/>
       {/* Awareness Section */}
       <section className="bg-white dark:bg-gray-900 mt-10">
         <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">

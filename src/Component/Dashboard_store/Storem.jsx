@@ -17,21 +17,7 @@ const Storem = () => {
         <span className="font-semibold text-xl ">Store manager</span>
       </div>
 
-      {/* Favorites and Recently */}
-      <div className="flex gap-3 mb-3">
-        <span className="text-gray-500">Favorites</span>
-        <span className="text-gray-300">Recently</span>
-      </div>
-
-      {/* Manage Account Section */}
-      <ul className="mb-8">
-        <li className="mb-2 flex items-center text-gray-700">
-          <span className="mr-2">•</span>Check existed blood unit
-        </li>
-        <li className="mb-6 flex items-center text-gray-700">
-          <span className="mr-2">•</span> Check amount of blood unit
-        </li>
-      </ul>
+     
 
       {/* Dashboards Section */}
       <div className="text-gray-500 uppercase text-xs font-semibold mb-3">
@@ -56,10 +42,8 @@ const Storem = () => {
       
       </ul>
 
-      {/* Pages Section */}
-      <div className="text-gray-500 uppercase text-xs font-semibold mb-3">
-        Pages
-      </div>
+      
+     
       <ul>
         {/* First Page Link (Expanded) */}
         <li className="mb-2">
@@ -70,14 +54,6 @@ const Storem = () => {
           {/* Sub-links */}
          
         </li>
-
-        {/* Other Page Links (Collapsed) */}
-     
-        <li className="mb-2 flex items-center text-gray-700 p-2">
-          <FaChevronRight className="mr-2" /> <FaCog className="mr-2" />{" "}
-        setting
-        </li>
-       
        
 
 

@@ -5,7 +5,7 @@ import p1 from '../Header/img/image copy.png';
 import imghptl from '../Header/img/image copy 4.png'
 import { useNavigate, Link } from 'react-router-dom';
 import SearchBar from '../Header/Search';
-
+import NavBar from "../Common/NavBar";
 function Hospitailrgtr() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -50,23 +50,7 @@ function Hospitailrgtr() {
 
   return (
     <div className="flex flex-col bg-white min-h-screen">
-      <header className="bg-red-100 w-full border fixed border-white rounded-full flex flex-col md:flex-row items-center justify-between p-2 z-10">
-        <img src={p1} alt="Logo" className="h-16" />
-        <nav className="text-black md:text-sm ml-1 md:ml-52 flex flex-wrap font-semibold space-x-5 items-center justify-center mt-2 md:mt-0">
-          <Link to='/' className="hover:text-red-600">Home</Link>
-          <Link to='/' className="hover:text-red-600">About</Link>
-          <Link to='/' className="hover:text-red-600">Blood</Link>
-          <Link to='/' className="hover:text-red-600">Contact Us</Link>
-          <Link to='/' className="hover:text-red-600">Awareness</Link>
-        </nav>
-        <div className="flex md:space-x-4 flex-row space-x-2">
-          <div className="relative">
-            <SearchBar />
-          </div>
-          <button className="p-2 mr-2 w-28 text-base rounded-md bg-white border hover:bg-slate-200 border-gray-300">Log In</button>
-          <button className="p-2 w-28 text-base rounded-md bg-red-600 hover:bg-red-900 text-white">Sign In</button>
-        </div>
-      </header>
+      <NavBar/>
 <div className="flex">
       <div className="flex-row">
         <h1 className="text-2xl font-semibold ml-1 mt-[5rem] px-32 pb-2">
