@@ -1,207 +1,200 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { BsChevronDown } from 'react-icons/bs';
-import Chart from 'chart.js/auto';
+import React, { useState } from 'react';
+import { BsChevronDown, BsChevronRight } from 'react-icons/bs';
+import { FaCog, FaHistory, FaEnvelope } from 'react-icons/fa';
+import { HiOutlineViewGrid } from 'react-icons/hi';
+import { Line, Pie } from 'react-chartjs-2'; // Import Line and Pie charts
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import Navbar from '../Dashboard/Navbar';
-import Storem from './Storem';
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 const MixStoreN = () => {
-  const [activeSection, setActiveSection] = useState('overview'); // Track active section (overview, report, inventory)
+  const [activeSection, setActiveSection] = useState('overview'); // Track active section
   const [inventory, setInventory] = useState([
     { bloodType: 'A+', stockLevel: 30, expirationDate: '2024-12-15', barcode: '12345' },
     { bloodType: 'B+', stockLevel: 45, expirationDate: '2024-12-18', barcode: '12346' },
     { bloodType: 'AB+', stockLevel: 20, expirationDate: '2024-12-10', barcode: '12347' },
     { bloodType: 'O+', stockLevel: 50, expirationDate: '2024-12-20', barcode: '12348' },
+    { bloodType: 'A-', stockLevel: 25, expirationDate: '2024-12-22', barcode: '12349' },
+    { bloodType: 'B-', stockLevel: 15, expirationDate: '2024-12-25', barcode: '12350' },
+    { bloodType: 'AB-', stockLevel: 10, expirationDate: '2024-12-30', barcode: '12351' },
+    { bloodType: 'O-', stockLevel: 60, expirationDate: '2024-12-05', barcode: '12352' },
   ]);
-  const [donors, setDonors] = useState([
-    { name: 'John Doe', barcode: '12345', collectionDate: '2024-11-01', bloodType: 'A+' },
-    { name: 'Jane Smith', barcode: '12346', collectionDate: '2024-11-05', bloodType: 'B+' },
-    { name: 'Tom Brown', barcode: '12347', collectionDate: '2024-10-20', bloodType: 'O+' },
+
+  const [reports, setReports] = useState([
+    { donorName: 'John Doe', collectionDate: '2024-11-15', barcode: '12345', bloodType: 'A+' },
+    { donorName: 'Jane Smith', collectionDate: '2024-11-16', barcode: '12346', bloodType: 'B+' },
+    { donorName: 'Mark Lee', collectionDate: '2024-11-17', barcode: '12347', bloodType: 'AB+' },
+    { donorName: 'Emily White', collectionDate: '2024-11-18', barcode: '12348', bloodType: 'O+' },
+    { donorName: 'Chris Brown', collectionDate: '2024-11-19', barcode: '12349', bloodType: 'A-' },
+    { donorName: 'Nina Green', collectionDate: '2024-11-20', barcode: '12350', bloodType: 'B-' },
+    { donorName: 'Samuel Black', collectionDate: '2024-11-21', barcode: '12351', bloodType: 'AB-' },
+    { donorName: 'Lisa Yellow', collectionDate: '2024-11-22', barcode: '12352', bloodType: 'O-' },
   ]);
 
-  const pieChartRef = useRef(null); // Reference for pie chart
-  const barChartRef = useRef(null); // Reference for bar chart
+  const [orders, setOrders] = useState([
+    { hospitalName: 'City Hospital', bloodType: 'A+', unitsRequested: 10, orderDate: '2024-11-18' },
+    { hospitalName: 'General Hospital', bloodType: 'B+', unitsRequested: 5, orderDate: '2024-11-19' },
+    { hospitalName: 'County Hospital', bloodType: 'O-', unitsRequested: 20, orderDate: '2024-11-20' },
+    { hospitalName: 'St. Mary\'s Hospital', bloodType: 'AB+', unitsRequested: 15, orderDate: '2024-11-21' },
+    { hospitalName: 'Children\'s Hospital', bloodType: 'A-', unitsRequested: 8, orderDate: '2024-11-22' },
+  ]);
 
-  useEffect(() => {
-    // Create Pie Chart
-    const pieChart = new Chart(pieChartRef.current, {
-      type: 'pie',
-      data: {
-        labels: inventory.map((item) => item.bloodType),
-        datasets: [
-          {
-            label: 'Blood Stock Levels',
-            data: inventory.map((item) => item.stockLevel),
-            backgroundColor: ['#ff0000', '#00ff00', '#0000ff', '#ff8000'],
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-        },
-      },
-    });
+  const handleSectionChange = (section) => setActiveSection(section);
 
-    // Create Bar Chart
-    const barChart = new Chart(barChartRef.current, {
-      type: 'bar',
-      data: {
-        labels: inventory.map((item) => item.bloodType),
-        datasets: [
-          {
-            label: 'Blood Stock Levels',
-            data: inventory.map((item) => item.stockLevel),
-            backgroundColor: '#4CAF50',
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-
-    // Cleanup function to destroy charts when component unmounts or updates
-    return () => {
-      pieChart.destroy();
-      barChart.destroy();
-    };
-  }, [inventory]);
-
-  // Toggle active section
-  const handleSectionChange = (section) => {
-    setActiveSection(section);
+  const handleIncrease = (index) => {
+    const updatedInventory = [...inventory];
+    updatedInventory[index].stockLevel += 1;
+    setInventory(updatedInventory);
   };
 
-  // Handle adding blood to stock
-  const handleAddBlood = (bloodType) => {
-    setInventory((prevInventory) =>
-      prevInventory.map((item) =>
-        item.bloodType === bloodType
-          ? { ...item, stockLevel: item.stockLevel + 1 }
-          : item
-      )
-    );
+  const handleDecrease = (index) => {
+    const updatedInventory = [...inventory];
+    if (updatedInventory[index].stockLevel > 0) {
+      updatedInventory[index].stockLevel -= 1;
+    }
+    setInventory(updatedInventory);
   };
 
-  // Generate report for expired blood donations
-  const expiredBlood = inventory.filter((item) => new Date(item.expirationDate) < new Date());
+  // Prepare data for the Line chart and Pie chart
+  const bloodTypes = inventory.map(item => item.bloodType);
+  const stockLevels = inventory.map(item => item.stockLevel);
+
+  const lineChartData = {
+    labels: bloodTypes,
+    datasets: [
+      {
+        label: 'Stock Levels',
+        data: stockLevels,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }
+    ]
+  };
+
+  const pieChartData = {
+    labels: bloodTypes,
+    datasets: [
+      {
+        data: stockLevels,
+        backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#ff9f40', '#4bc0c0', '#f44336', '#9c27b0'],
+        hoverBackgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#ff9f40', '#4bc0c0', '#f44336', '#9c27b0']
+      }
+    ]
+  };
 
   return (
     <div className="flex">
       {/* Sidebar */}
-      <Storem />
+      <div className="w-64 h-screen bg-white p-2 pt-4 fixed overflow-y-auto">
+        {/* Profile Section */}
+        <div className="flex items-center">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Profile"
+            className="rounded-full w-10 h-10 mr-3"
+          />
+          <span className="font-semibold text-xl">Store Manager</span>
+        </div>
+
+        {/* Dashboards Section */}
+        <div className="text-gray-500 uppercase text-xs font-semibold mb-3">Dashboards</div>
+        <ul className="mb-8">
+          <li
+            className={`mb-2 flex items-center p-2 rounded-full ${
+              activeSection === 'overview' ? 'bg-red-100 text-red-500' : 'text-gray-700'
+            }`}
+            onClick={() => handleSectionChange('overview')}
+          >
+            <HiOutlineViewGrid className="mr-3" /> Overview
+          </li>
+          <li
+            className={`mb-2 flex items-center p-2 ${
+              activeSection === 'report' ? 'bg-red-100 text-red-500' : 'text-gray-700'
+            }`}
+            onClick={() => handleSectionChange('report')}
+          >
+            <BsChevronRight className="mr-1" /> <FaCog className="mr-3" /> View Report
+          </li>
+          <li
+            className={`mb-2 flex items-center p-2 ${
+              activeSection === 'viewOrders' ? 'bg-red-100 text-red-500' : 'text-gray-700'
+            }`}
+            onClick={() => handleSectionChange('viewOrders')}
+          >
+            <BsChevronRight className="mr-1" /> <FaHistory className="mr-3" /> View Orders
+          </li>
+          <li
+            className={`mb-2 flex items-center p-2 ${
+              activeSection === 'checkInventory' ? 'bg-red-100 text-red-500' : 'text-gray-700'
+            }`}
+            onClick={() => handleSectionChange('checkInventory')}
+          >
+            <BsChevronRight className="mr-1" /> <FaEnvelope className="mr-3" /> Check Inventory
+          </li>
+        </ul>
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 bg-[#fffbfb] min-h-screen pl-64">
-        {/* Navbar */}
         <Navbar />
-
-        {/* Page Content */}
         <div className="p-6 mt-16">
-          {/* Buttons to switch between sections */}
-          <div className="flex space-x-4 mb-6">
-            <button
-              onClick={() => handleSectionChange('overview')}
-              className={`px-4 py-2 rounded-lg ${activeSection === 'overview' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-            >
-              Overview
-            </button>
-            <button
-              onClick={() => handleSectionChange('report')}
-              className={`px-4 py-2 rounded-lg ${activeSection === 'report' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-            >
-              View Report
-            </button>
-            <button
-              onClick={() => handleSectionChange('inventory')}
-              className={`px-4 py-2 rounded-lg ${activeSection === 'inventory' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-            >
-              Check Inventory
-            </button>
-          </div>
-
-          {/* Section: Overview (Chart Display) */}
           {activeSection === 'overview' && (
-            <>
-              <div className="mb-6">
-                <h2 className="text-2xl font-semibold">Overview</h2>
-                <div className="w-full max-w-2xl mx-auto mb-8 bg-white shadow-md p-4 rounded-lg">
-                  <h3 className="text-lg font-semibold text-center mb-4">Blood Stock Levels (Pie Chart)</h3>
-                  <canvas ref={pieChartRef}></canvas>
-                </div>
-                <div className="w-full max-w-2xl mx-auto mb-8 bg-white shadow-md p-4 rounded-lg">
-                  <h3 className="text-lg font-semibold text-center mb-4">Blood Stock Levels (Bar Chart)</h3>
-                  <canvas ref={barChartRef}></canvas>
+            <div>
+              <h2 className="text-2xl font-semibold">Overview</h2>
+
+              <div className="mt-8">
+                {/* Line Chart for Blood Stock Levels */}
+                <h3 className="text-xl font-semibold mb-4">Blood Stock Levels (Line Chart)</h3>
+                <div className="h-64">
+                  <Line data={lineChartData} />
                 </div>
               </div>
-            </>
-          )}
 
-          {/* Section: Report (Donor Table) */}
-          {activeSection === 'report' && (
-            <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4">Donor Information</h3>
-              <table className="table-auto w-full text-left border-collapse">
-                <thead>
-                  <tr>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Name</th>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Barcode</th>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Collection Date</th>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Blood Type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {donors.map((donor) => (
-                    <tr key={donor.barcode} className="border-t">
-                      <td className="px-4 py-2 text-gray-700">{donor.name}</td>
-                      <td className="px-4 py-2 text-gray-700">{donor.barcode}</td>
-                      <td className="px-4 py-2 text-gray-700">{donor.collectionDate}</td>
-                      <td className="px-4 py-2 text-gray-700">{donor.bloodType}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <button
-                onClick={() => alert('Generating report...')}
-                className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
-              >
-                Generate Report
-              </button>
+              <div className="mt-8">
+                {/* Pie Chart for Blood Type Distribution */}
+                <h3 className="text-xl font-semibold mb-4">Blood Type Distribution (Pie Chart)</h3>
+                <div className="h-64">
+                  <Pie data={pieChartData} />
+                </div>
+              </div>
             </div>
           )}
 
-          {/* Section: Inventory (Blood Type and Stock Levels) */}
-          {activeSection === 'inventory' && (
-            <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4">Blood Inventory</h3>
-              <table className="table-auto w-full text-left border-collapse">
+          {activeSection === 'checkInventory' && (
+            <div>
+              <h2 className="text-2xl font-semibold">Check Inventory</h2>
+              <table className="min-w-full table-auto mt-4">
                 <thead>
                   <tr>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Blood Type</th>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Stock Level</th>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Actions</th>
+                    <th className="px-4 py-2">Blood Type</th>
+                    <th className="px-4 py-2">Stock Level</th>
+                    <th className="px-4 py-2">Expiration Date</th>
+                    <th className="px-4 py-2">Barcode</th>
+                    <th className="px-4 py-2">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {inventory.map((item) => (
-                    <tr key={item.barcode} className="border-t">
-                      <td className="px-4 py-2 text-gray-700">{item.bloodType}</td>
-                      <td className="px-4 py-2 text-gray-700">{item.stockLevel}</td>
-                      <td className="px-4 py-2 text-gray-700">
-                        <button
-                          onClick={() => handleAddBlood(item.bloodType)}
-                          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-                        >
-                          Add Blood
-                        </button>
+                  {inventory.map((item, index) => (
+                    <tr key={index}>
+                      <td className="border px-4 py-2">{item.bloodType}</td>
+                      <td className="border px-4 py-2">{item.stockLevel}</td>
+                      <td className="border px-4 py-2">{item.expirationDate}</td>
+                      <td className="border px-4 py-2">{item.barcode}</td>
+                      <td className="border px-4 py-2">
+                        <button onClick={() => handleDecrease(index)} className="mr-2 text-red-500">Decrease</button>
+                        <button onClick={() => handleIncrease(index)} className="text-green-500">Increase</button>
                       </td>
                     </tr>
                   ))}
@@ -210,22 +203,51 @@ const MixStoreN = () => {
             </div>
           )}
 
-          {/* Expired Blood Report */}
-          {expiredBlood.length > 0 && (
-            <div className="bg-white shadow-md rounded-lg p-6 mb-8">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4">Expired Blood Donations</h3>
-              <table className="table-auto w-full text-left border-collapse">
+          {activeSection === 'report' && (
+            <div>
+              <h2 className="text-2xl font-semibold">View Report</h2>
+              <table className="min-w-full table-auto mt-4">
                 <thead>
                   <tr>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Blood Type</th>
-                    <th className="px-4 py-2 text-sm font-medium text-gray-600">Barcode</th>
+                    <th className="px-4 py-2">Donor Name</th>
+                    <th className="px-4 py-2">Collection Date</th>
+                    <th className="px-4 py-2">Barcode</th>
+                    <th className="px-4 py-2">Blood Type</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {expiredBlood.map((item) => (
-                    <tr key={item.barcode} className="border-t">
-                      <td className="px-4 py-2 text-gray-700">{item.bloodType}</td>
-                      <td className="px-4 py-2 text-gray-700">{item.barcode}</td>
+                  {reports.map((report, index) => (
+                    <tr key={index}>
+                      <td className="border px-4 py-2">{report.donorName}</td>
+                      <td className="border px-4 py-2">{report.collectionDate}</td>
+                      <td className="border px-4 py-2">{report.barcode}</td>
+                      <td className="border px-4 py-2">{report.bloodType}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {activeSection === 'viewOrders' && (
+            <div>
+              <h2 className="text-2xl font-semibold">View Orders</h2>
+              <table className="min-w-full table-auto mt-4">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2">Hospital Name</th>
+                    <th className="px-4 py-2">Blood Type</th>
+                    <th className="px-4 py-2">Amount of Blood Units</th>
+                    <th className="px-4 py-2">Order Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order, index) => (
+                    <tr key={index}>
+                      <td className="border px-4 py-2">{order.hospitalName}</td>
+                      <td className="border px-4 py-2">{order.bloodType}</td>
+                      <td className="border px-4 py-2">{order.unitsRequested}</td>
+                      <td className="border px-4 py-2">{order.orderDate}</td>
                     </tr>
                   ))}
                 </tbody>

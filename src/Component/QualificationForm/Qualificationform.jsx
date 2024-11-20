@@ -59,7 +59,7 @@ const QualificationForm = () => {
     e.preventDefault();
 
     if (formData.weight < 47 || formData.weight === "") {
-      alert("Weight must be 47kg or more to qualify for blood donation.");
+      alert("Weight must be 45kg or more to qualify for blood donation.");
       return;
     }
 
