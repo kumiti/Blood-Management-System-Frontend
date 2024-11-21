@@ -21,6 +21,7 @@ import Awareness from "./Component/Awareness/Awareness";
 import LogIn from "./Component/LogIn/LogIn";
 import Schedule from "./Component/Schedule/Schedule";
 import Collector from "./Component/Dashboard_Collector/Collector";
+import Manager from "./Component/manager_dashboard/Manager";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/Schedule" element={<Schedule />} />
         <Route path="/Dashboard_Collector" element={<Collector />} />
+        <Route path="/Dashboardmanager" element={<Manager />} />
       </Routes>
     </>
   );
