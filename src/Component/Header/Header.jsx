@@ -1,186 +1,184 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-// import { useNavigate } from 'react-router-dom';
 import logo from "./img/image copy.png";
 import home from "./img/blood heart.png";
-// import p1 from './img/10002.jpg'
-
-import p1 from "./img/10009 copy 2.png";
 import Footer from "./Footer";
-import CarouselPage from "./Carasol";
+import CarouselPage from "./CarouselPage"; // Ensure correct file path
 import Colabration from "./Colabration";
+import p1 from "./img/10009 copy 2.png";
 import p2 from "./img/10001 copy.png";
 import p3 from "./img/10002 copy.png";
 import p4 from "./img/10007.jpg";
 import p5 from "./img/10008.jpg";
 import p6 from "./img/10006.jpg";
-
 import { Link } from "react-router-dom";
-import SearchBar from "./Search";
 import Navbar from "../Common/Navbar";
 
 function Header() {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <>
-      <div className="bg-white " id="home">
+      <div className="bg-white" id="home">
         <Navbar />
-        <div className="flex justify-around p-40 mb-2 ">
-          <div className="fljex flex-col space-y-10 pr-5">
-            <p className="text-wrap font-bold  text-3xl">
-              Welcome to Blood and Tissue <br /> Supply Chain Management System
-            </p>
-            <p className="text-2xl mb-0">
-              Join us at Blood and Tissue Supply Chain <br /> Management System
-              and help save lives <br />
-              by donating blood or finding the nearest <br /> blood bank with
-              our seamless management system.
-            </p>
-            <Link to="/registerion">
-              <button className="bg-[#f72828fe] w-[200px]   rounded-md px-5 h-14 text-white hover:bg-red-400 text-2xl text-bold mt-[3rem]">
-                Register
-              </button>
-            </Link>
+        {/* Hero Section */}
+        <div>
+          {" "}
+          <div className="flex flex-wrap items-center justify-around py-16 px-8 bg-red-50">
+            {/* Left Content */}
+            <div className="flex flex-col space-y-8 max-w-lg">
+              <h1 className="text-4xl font-extrabold text-gray-800">
+                Welcome to Blood and Tissue Supply Chain Management System
+              </h1>
+              <p className="text-xl text-gray-700 leading-relaxed">
+                Join us at Blood and Tissue Supply Chain Management System and
+                help save lives by donating blood or finding the nearest blood
+                bank with our seamless management system.
+              </p>
+              <Link to="/registerion">
+                <button
+                  className="bg-red-500 hover:bg-red-400 transition-colors text-white text-lg font-semibold py-3 px-6 rounded-md"
+                  aria-label="Register for the Blood Donation System"
+                >
+                  Register Now
+                </button>
+              </Link>
+            </div>
+
+            {/* Right Content */}
+            <div className="w-full max-w-md">
+              <img
+                src={home}
+                alt="A heart-shaped blood donation symbol"
+                className="object-cover w-full rounded-xl"
+              />
+            </div>
           </div>
-          <div className=" p-16 h-48 flex items-center justify-center">
-            <img
-              src={home}
-              alt=""
-              className="w-full h-[34rem]   pt-[8rem] object-cover"
-            />
-          </div>
-        </div>
-        <div className="bg-red-100 w-full flex justify-center items-center min-h-screen py-16 px-4">
-          <p className=" text-black text-2xl ">
+          <p className="px-56 text-xl">
             The Blood Bank service in Ethiopia was initiated in 1969 by the
-            Ethiopian Red Cross Society in Addis Ababa .<br />
-            Initially, it operated through 12 regional blood banks, catering to
-            the need of 52% of the countrys hospitals
-            <br />
-            April 2012, the Federal Ministry of Health (MOH) decided to transfer
-            the responsibility from the Ethiopian Red <br />
-            In Cross Society to a government-managed service under the MOH. This
-            change aimed to enhance efficiency <br />
-            and integrate the Blood Bank Service into the mainstream healthcare
-            system. One of the primary objectives <br />
-            of the EBBS is to ensure the availability of safe blood and blood
-            products nationwide.
-            <br />
+            Ethiopian Red Cross Society in Addis Ababa . Initially, it operated
+            through 12 regional blood banks, catering to the need of 52% of the
+            countrys hospitals April 2012, the Federal Ministry of Health (MOH)
+            decided to transfer the responsibility from the Ethiopian Red In
+            Cross Society to a government-managed service under the MOH. This
+            change aimed to enhance efficiency and integrate the Blood Bank
+            Service into the mainstream healthcare system. One of the primary
+            objectives of the EBBS is to ensure the availability of safe blood
+            and blood products nationwide.`
           </p>
         </div>
-        <div className="bg-red-100 h-[28rem] showindictor">
+
+        {/* Carousel Section */}
+        <div className="py-16 bg-white">
           <CarouselPage />
         </div>
 
-        <div className="" id="blood">
-          <div className="flex mb-16 mt-5 justify-around ">
-            <div className="">
-              <h1 className=" font-bold text-4xl m-5 mb-4">1 Donate Blood</h1>
-              <h5 className="text-slate-500 ml-10 mb-4">
-                {" "}
-                Schedule your donation at one of <br />
-                our locations and help save lives.
-              </h5>
+        {/* Blood Donation Process */}
+        <div className="py-16 px-8 bg-white" id="blood">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold text-gray-800">
+              Our Blood Donation Process
+            </h2>
+            <p className="text-gray-600 mt-4">
+              A streamlined journey from donation to saving lives.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-12">
+            {/* Process Step 1 */}
+            <div className="text-center group relative">
+              <h3 className="text-3xl font-bold">1. Donate Blood</h3>
+              <p className="text-gray-600 mt-2">
+                Schedule your donation at one of our locations and help save
+                lives.
+              </p>
               <img
                 src={p1}
-                className="w-full rounded-2xl mb-10 group    transition-transform duration-300 transform group-hover:scale-150 "
+                alt="Illustration of a person donating blood"
+                className="w-full h-64 object-cover rounded-lg mt-6"
               />
-              <h5 className="text-slate-500 ml-10">
-                Schedule your blood donation at one of our <br /> convenient
-                locations. Your generous <br /> contribution can save lives and
-                is the first <br />
-                step in our life-saving journey.
-              </h5>
+              <div className="absolute bottom-0 left-0 bg-white bg-opacity-90 text-gray-800 text-sm rounded-lg p-4 shadow-lg hidden group-hover:block">
+                Visit our donation centers or participate in local blood drives
+                to contribute.
+              </div>
             </div>
-
+            {/* Process Step 2 */}
             <div className="text-center">
-              <h1 className=" font-bold text-4xl mb-4 m-5">
-                2 Blood Processing
-              </h1>
-              <h5 className="text-slate-500 ml-10 mb-4">
-                Bood is processed, tested,and <br /> stored safely in our
-                facilities.{" "}
-              </h5>
+              <h3 className="text-3xl font-bold">2. Blood Processing</h3>
+              <p className="text-gray-600 mt-2">
+                Blood is processed, tested, and stored safely in our facilities.
+              </p>
               <img
                 src={p2}
-                className="ml-10 w-[24rem] rounded-2xl mb-12 "
-                alt=""
+                alt="Illustration of blood processing equipment"
+                className="w-full h-64 object-cover rounded-lg mt-6"
               />
-              <h5 className="text-slate-500 ml-10">
-                After donation, the blood is carefully <br />
-                processed,tested,andstored in our state-
-                <br />
-                of-the-art facilities to ensure it meets the <br /> highest
-                safety standards before being <br />
-                distributed to hospitals.
-              </h5>
             </div>
-
+            {/* Process Step 3 */}
             <div className="text-center">
-              <h1 className=" font-bold text-4xl m-5 mb-4">3 Deliver Blood</h1>
-              <h5 className="text-slate-500 ml-10 mb-4">
-                Safely delivered to hospitals for <br /> patient care.
-              </h5>
+              <h3 className="text-3xl font-bold">3. Deliver Blood</h3>
+              <p className="text-gray-600 mt-2">
+                Safely delivered to hospitals for patient care.
+              </p>
               <img
                 src={p3}
-                className="ml-10 w-[24rem]  mb-12 rounded-2xl"
-                alt=""
+                alt="A vehicle delivering blood supplies"
+                className="w-full h-64 object-cover rounded-lg mt-6"
               />
-              <h5 className="text-slate-500 ml-10">
-                The processed blood is promptly delivered <br />
-                to hospitals,where it is provided to medical <br /> carers to
-                administer to patients in need,
-                <br />
-                ensuring timely and effective care.
-              </h5>
             </div>
-          </div>
-
-          <div className="flex justify-around">
-            <div className="">
-              <h1 className=" font-bold text-4xl ">
-                4 Controlling <br /> Blood Stock
-              </h1>
-              <h5 className="text-slate-500 ml-10 mt-5">
-                Our system ensures accurate blood <br />
-                control through real-time monitoring
-              </h5>
-              <img src={p4} className=" w-[24rem] rounded-2xl mt-10" alt="" />
+            <div className="text-center">
+              <h3 className="text-3xl font-bold">4.Controlling Blood Stock</h3>
+              <p className="text-gray-600 mt-2">
+                Real time monitoring ensures accurate blood control.{" "}
+              </p>
+              <img
+                src={p4}
+                alt="Illustration of blood processing equipment"
+                className="w-full h-64 object-cover rounded-lg mt-6"
+              />
             </div>
-            <div className="">
-              <h1 className=" font-bold text-4xl ">
-                5 Analayiting And <br /> Reporting
-              </h1>
-              <h5 className="text-slate-500 ml-10 mt-5">
-                Our system goes beyond basic blood <br />
-                bank management; it empowers with <br />
-                insightful data analytics
-              </h5>
-              <img src={p5} className=" w-[24rem] mt-6  rounded-2xl" alt="" />
+            {/* Process Step  */}
+            <div className="text-center">
+              <h3 className="text-3xl font-bold">5.Analyizing& Reporting</h3>
+              <p className="text-gray-600 mt-2">
+                Insights and analytics for efficient management.
+              </p>
+              <img
+                src={p5}
+                alt="A vehicle delivering blood supplies"
+                className="w-full h-64 object-cover rounded-lg mt-6"
+              />
             </div>
-            <div className="">
-              <h1 className=" font-bold text-4xl ">6 User Mangment</h1>
-              <h5 className="text-slate-500 ml-10 mt-5">
-                The system manges user security <br /> and include powerful user
-                administ <br />
-                ration mechanism
-              </h5>
-              <img src={p6} className=" w-[24rem] rounded-2xl mt-14 " alt="" />
+            <div className="text-center group relative">
+              <h3 className="text-3xl font-bold">6.user management </h3>
+              <p className="text-gray-600 mt-2">
+                secure user administration and management tools.
+              </p>
+              <img
+                src={p6}
+                alt="Illustration of a person donating blood"
+                className="w-full h-64 object-cover rounded-lg mt-6"
+              />
+              <div className="absolute bottom-0 left-0 bg-white bg-opacity-90 text-gray-800 text-sm rounded-lg p-4 shadow-lg hidden group-hover:block">
+                Visit our donation centers or participate in local blood drives
+                to contribute.
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="">
-          <h1 className="justify-center text-center pt-32 font-semibold text-5xl">
-            Our colabrations
-          </h1>
-        </div>
-        <div className=" bg-red-100 h-[15rem] mb-36 mt-10 ">
+        {/* Collaborations Section */}
+        <div className="py-16 px-8 bg-white">
+          <h2 className="text-center text-4xl font-bold mb-8">
+            Our Collaborations
+          </h2>
           <Colabration />
         </div>
-        {/* <ImageCarousel/> */}
-        <div id="contact-us">
-          <Footer />
-        </div>
+
+        {/* Footer Section */}
+        <Footer />
       </div>
     </>
   );

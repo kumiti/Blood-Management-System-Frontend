@@ -5,53 +5,61 @@ import hello from "../Header/img/hello.png";
 import SearchBar from "../Header/Search";
 import { Link } from "react-router-dom";
 import NavBar from "../Common/NavBar";
+
 function Registersion() {
   return (
     <>
-      <div className="flex flex-col bg-white">
-        <div className="">
+      <div className="flex flex-col bg-gray-50 min-h-screen">
+        {/* Navigation Bar */}
+        <NavBar />
+
+        {/* Welcome Section */}
+        <div className="flex flex-col items-center py-12 px-4 text-center">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">
+            Welcome to the Blood and Tissue Supply 
+            <br />
+            Chain Management System
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600">
+            Join our platform to help save lives and manage blood and tissue resources seamlessly.
+          </p>
+        </div>
+
+        {/* Hero Image */}
+        <div className="flex justify-center items-center">
+          <img
+            src={hello}
+            alt="Welcome Illustration"
+            className="w-10/12 md:w-1/2 object-contain"
+          />
+        </div>
+
+        {/* Registration Options */}
+        <div className="flex flex-col items-center mt-8 space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-red-600">
+            Register As
+          </h2>
           
-          <NavBar/>
+          {/* Donor Button */}
+          <Link to="/Donersubmit">
+            <button className="bg-red-500 hover:bg-red-600 text-white text-xl md:text-2xl font-semibold px-12 py-3 rounded-lg shadow-lg transition-all duration-200">
+              As Donor
+            </button>
+          </Link>
+          
+          {/* Hospital Button */}
+          <Link to="/hostpitalsubmit">
+            <button className="bg-gray-100 hover:bg-red-100 text-red-500 border border-red-500 text-xl md:text-2xl font-semibold px-12 py-3 rounded-lg shadow-lg transition-all duration-200">
+              As Hospital
+            </button>
+          </Link>
+        </div>
 
-
-            
-
-          <div className="flex flex-col pt-20 pb-14 px-4 md:px-0">
-            <p className="text-wrap font-semibold ml-[1rem] text-center mt-[0.2rem] -mb-4 text-lg md:text-2xl md:text-center">
-              Welcome to Blood and Tissue Supply <br /> Chain Management System
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <img
-              src={hello}
-              alt=""
-              className="w-11/12  -ml-[1rem] md:w-[26rem] h-auto -mt-11"
-            />
-            <a
-              href=""
-              className="text-red-500 text-2xl md:text-3xl -mt-24 md:ml-5 font-extrabold mr-[65rem]"
-            >
-              Register as
-            </a>
-          </div>
-
-          <div className="">
-            <Link to="/Donersubmit">
-              <button className="bg-red-100 text-2xl text-black font-bold border-2 border-black rounded-lg mx-5 mb-2 md:mb-0 px-8 py-[0.4rem] hover:bg-red-400 transition">
-                As Donor
-              </button>
-            </Link>
-            
-          </div>
-
-          <div className="">
-            <Link to="/hostpitalsubmit">
-              <button className="bg-red-100 text-black py-[0.3rem] font-bold text-2xl border-2 border-black  px-16 rounded-lg hover:bg-red-400 transition">
-                As Hospital
-              </button>
-            </Link>
-          </div>
+        {/* Footer */}
+        <div className="mt-16 bg-red-500 py-4">
+          <p className="text-center text-white text-sm md:text-base">
+            &copy; 2025 Blood and Tissue Supply Chain Management System. All rights reserved.
+          </p>
         </div>
       </div>
     </>

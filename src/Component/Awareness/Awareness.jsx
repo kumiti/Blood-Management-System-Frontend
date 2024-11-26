@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import BloodHeart from "../Header/img/awareness.picture.jpg";
-import p1 from '../Header/img/image copy.png';
-import SearchBar from '../Header/Search';
-import { Link } from 'react-router-dom';
+import p1 from "../Header/img/image copy.png";
+import SearchBar from "../Header/Search";
+import { Link } from "react-router-dom";
 import NavBar from "../Common/NavBar";
 
 // Array of blood types with details
@@ -11,7 +11,6 @@ const bloodTypes = [
     id: 1,
     bloodType: "A+",
     compatibility: "Can donate to A+ and AB+; receive from A+, A-, O+, O-",
-
     info:
       "Common blood type. Preferred for emergencies due to compatibility with A and AB.",
   },
@@ -19,7 +18,6 @@ const bloodTypes = [
     id: 2,
     bloodType: "B+",
     compatibility: "Can donate to B+ and AB+; receive from B+, B-, O+, O-",
-
     info:
       "Ideal for patients with B and AB blood types. In demand for rare procedures.",
   },
@@ -27,7 +25,6 @@ const bloodTypes = [
     id: 3,
     bloodType: "O+",
     compatibility: "Can donate to all positives; receive from O+ and O-",
-
     info:
       "Most common blood type. Essential for trauma and emergency transfusions.",
   },
@@ -35,14 +32,12 @@ const bloodTypes = [
     id: 4,
     bloodType: "AB+",
     compatibility: "Universal recipient; can receive from all types",
-
     info: "Universal recipient, highly versatile in emergencies.",
   },
   {
     id: 5,
     bloodType: "A-",
     compatibility: "Can donate to A+, A-, AB+, AB-; receive from A- and O-",
-
     info:
       "Less common. Important for compatible recipients due to Rh-negative factor.",
   },
@@ -72,8 +67,8 @@ const Awareness = () => {
   return (
     <div className="flex flex-col">
       {/* Navbar Section */}
-      {/* <NavBar /> */}
-      <NavBar/>
+      <NavBar />
+
       {/* Awareness Section */}
       <section className="bg-white dark:bg-gray-900 mt-10">
         <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
@@ -171,6 +166,82 @@ const Awareness = () => {
           </div>
         </div>
       </div>
+
+      {/* Blood Donation Eligibility Criteria */}
+      <section className="bg-gray-100 py-8">
+        <div className="max-w-screen-xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-red-700 mb-6">
+            Blood Donation Eligibility Criteria
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Age</h3>
+              <p className="text-gray-600 mt-2">
+                Donors should be between 17 and 65 years old. Donors under 18
+                may need parental consent in some regions.
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Weight</h3>
+              <p className="text-gray-600 mt-2">
+                Donors should weigh at least 110 pounds (50 kg).
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Health Status</h3>
+              <p className="text-gray-600 mt-2">
+                Donors must be in generally good health and free from illness.
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Hemoglobin Level</h3>
+              <p className="text-gray-600 mt-2">
+                A minimum hemoglobin level of 12.5 g/dL is required for blood donation.
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Frequency of Donation</h3>
+              <p className="text-gray-600 mt-2">
+                Whole blood can be donated once every 8 weeks, while platelets and plasma
+                can be donated more frequently.
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Medications</h3>
+              <p className="text-gray-600 mt-2">
+                Certain medications may prevent donation. It's important to consult with a
+                healthcare provider.
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Pregnancy</h3>
+              <p className="text-gray-600 mt-2">
+                Women who are pregnant or recently gave birth should not donate blood.
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Tattoos</h3>
+              <p className="text-gray-600 mt-2">
+                Donors who have had a tattoo in the last 12 months may not be eligible.
+              </p>
+            </div>
+
+            <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-gray-800">Blood Pressure</h3>
+              <p className="text-gray-600 mt-2">
+                Donors with uncontrolled high blood pressure should not donate.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Blood Type Slider */}
       <div
