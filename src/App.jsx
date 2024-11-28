@@ -1,66 +1,64 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Header from "./Component/Header/Header";
-import { Routes, Route } from "react-router-dom";
-import Regesindivual from "./Component/Donate_as_indiviual/Regesindivual";
-import RidaNextRI from "./Component/Donate_as_indiviual/RidaNextRI";
-import Nextindivual from "./Component/Donate_as_indiviual/Nextindivual";
-import City from "./Component/Donate_as_indiviual/City";
-import NotFound from "./Component/Fou404page/F404page";
-import Rasorg from "./Component/Donate_organzation/Rasorg";
-import Hospitailrgtr from "./Component/Donate_Hospitail/Hospitalregtr.jsx";
-import Donerrgtr from "./Component/Donae_Doner/Donerregister";
-import MixHoPN from "./Component/Dashboard_Hospitail_profile/MixHoPN.jsx";
-import MixLN from "./Component/Dashboard_Labatory/MixLN.jsx";
-import MixStoreN from "./Component/Dashboard_store/MixStoreN.jsx";
-import MixsyNav from "./Component/Dashboard_System_adimn/MixsyNav.jsx";
-import QualificationForm from "./Component/QualificationForm/Qualificationform";
-import Registersion from "./Component/Doner_as_staff/DonationAs_D_S_H";
-import Indivdualdash from "./Component/Donate_as_indiviual/Indivdualdash";
-import DashboardInformation from "./Component/Donar_information/Dashboard.jsx";
-import Awareness from "./Component/Awareness/Awareness";
-import LogIn from "./Component/LogIn/LogIn";
-import Schedule from "./Component/Schedule/Schedule";
-import Collector from "./Component/Dashboard_Collector/Collector";
-import Manager from "./Component/manager_dashboard/Manager";
+// import Schedule from "./Component/Schedule/Schedule";
+import AwarenessPage from "./page/awareness/AwarenessPage.jsx";
+import CollectorDashboardPage from "./page/dashboard/admin/CollectorDashboardPage.jsx";
+import DashboardPage from "./page/dashboard/admin/DashboardPage.jsx";
+import HospitalDashboardPage from "./page/dashboard/admin/HospitalDashboardPage.jsx";
+import LaboratoryDashboardPage from "./page/dashboard/admin/LaboratoryDashboardPage.jsx";
+import ManagerDashboardPage from "./page/dashboard/admin/ManagerDashboardPage.jsx";
+import SystemAdminDashboardPage from "./page/dashboard/admin/SystemAdminDashboardPage.jsx";
+import DonorDashboardPage from "./page/dashboard/donor/DonorDashboardPage.jsx";
+import LandingPage from "./page/landing/LandingPage.jsx";
+import LoginPage from "./page/login/LoginPage";
+import NotFoundPage from "./page/NotFoundPage.jsx";
+import HospitalRegistrationPage from "./page/registration/hospital/HospitalRegistrationPage";
+import IndividualRegistrationPage from "./page/registration/individual/IndividualRegistrationPage.jsx";
+import RegistrationPage from "./page/registration/RegistrationPage.jsx";
+import RegistrationSuccess from "./page/registration/RegistrationSuccessPage.jsx";
+import StoreManagerDashboardPage from "./page/dashboard/admin/StoreManagerDashboardPage.jsx";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Header />} />
-        <Route path="*" element={<NotFound />} />
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/awareness" element={<AwarenessPage />} />
 
-        {/* Dashboard  start*/}
-        <Route path="/Donerinfo" element={<DashboardInformation />} />
-        <Route path="/Awareness" element={<Awareness />} />
-        <Route path="/HospitailDashboard" element={<MixHoPN />} />
-        <Route path="/LabratoryDashboard" element={<MixLN />} />
-        <Route path="/storeDashboard" element={<MixStoreN />} />
-        <Route path="/systemadimnDashboard" element={<MixsyNav />} />
-        <Route path="/QualificationForm" element={<QualificationForm />} />
-        {/* dashboard end */}
+      {/* Registration Routes */}
+      <Route path="/registration">
+        <Route index element={<RegistrationPage />} />
+        <Route path="individual">
+          <Route index element={<IndividualRegistrationPage />} />
+          <Route
+            path="success"
+            element={<RegistrationSuccess isHospital={false} />}
+          />
+        </Route>
+        <Route path="hospital">
+          <Route index element={<HospitalRegistrationPage />} />
+          <Route
+            path="success"
+            element={<RegistrationSuccess isHospital={true} />}
+          />
+        </Route>
+      </Route>
 
-        {/* donate as indivial start */}
-        <Route path="/Register" element={<Indivdualdash />} />
-        <Route path="/register1" element={<Regesindivual />} />
-        <Route path="/register2" element={<Nextindivual />} />
-        <Route path="/register4" element={<RidaNextRI />} />
-        <Route path="/register3" element={<City />} />
-        {/* donate as indivial ends */}
+      {/* Dashboard Routes */}
+      <Route path="/dashboard">
+        <Route index element={<DashboardPage />} />
+        <Route path="manager" element={<ManagerDashboardPage />} />
+        <Route path="collector" element={<CollectorDashboardPage />} />
+        <Route path="laboratory" element={<LaboratoryDashboardPage />} />
+        <Route path="hospital" element={<HospitalDashboardPage />} />
+        <Route path="system-admin" element={<SystemAdminDashboardPage />} />
+        <Route path="store-manager" element={<StoreManagerDashboardPage />} />
+        <Route path="donor" element={<DonorDashboardPage />} />
+      </Route>
 
-        {/* donate as select as hosipital ,as staff,doner start*/}
-        <Route path="/registerion" element={<Registersion />} />
-        {/* donate as select as hosipital ,as staff,doner ends*/}
-        {/* donate as as hosipital */}
-        <Route path="/hostpitalsubmit" element={<Hospitailrgtr />} />
-        {/* donate as doner */}
-        <Route path="/Donersubmit" element={<Donerrgtr />} />
-        <Route path="/LogIn" element={<LogIn />} />
-        <Route path="/Schedule" element={<Schedule />} />
-        <Route path="/Dashboard_Collector" element={<Collector />} />
-        <Route path="/Dashboardmanager" element={<Manager />} />
-      </Routes>
-    </>
+      {/* <Route path="/schedule" element={<Schedule />} /> */}
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }
 
